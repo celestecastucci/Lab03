@@ -51,16 +51,26 @@ public class FXMLController {
 
     @FXML
     void handleClearText(ActionEvent event) {
-
+    	
+    	txtRisultato.clear();
+    	txtErrori.clear();
+    	txtTime.clear();
+    	txtInserisci.clear();
     }
 
     @FXML
     void handleSpellCheck(ActionEvent event) {
     	
+    	this.model.loadDictionary(boxLanguage.getValue());
+    	
     	long startTime= System.nanoTime();
     	List<RichWord>paroleR;
+    	
     	String inserisci= txtInserisci.getText().toLowerCase();
-    	inserisci=inserisci.replaceAll("[.,\\/#$%?\\^&\\*;:{}=\\-_'()\\[\\]\"]", "");
+    	if(inserisci==null) {
+    		txtRisultato.setText("ERRORE. DEVI INSERIRE UNA PAROLA");
+    	}
+    	inserisci=inserisci.replaceAll("[.,\\/#$%!?\\^&\\*;:{}=\\-_'()\\[\\]\"]", "");
     	
     	List<String>listaInputText= new LinkedList<String>();  //creo una lista vuota
     	String array[]=inserisci.split(" ");
@@ -100,8 +110,6 @@ public class FXMLController {
     
     public void setModel(Dictionary model) {
     	this.model=model;
-    	String languages[]= {"English","Italian"};
-    	boxLanguage.getItems().addAll(languages); //nella combo box--> mettere String al posto di <?> perchè io ho dichiarato languages come string
-    	
+    	boxLanguage.getItems().addAll("English", "Italian");
     }
 }

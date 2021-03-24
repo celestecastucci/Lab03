@@ -10,7 +10,10 @@ public class Dictionary {
 
 	List<String>dizionario= new LinkedList<String>();
 	
+	
 	public void loadDictionary(String language) {
+		
+		this.dizionario.clear();
 		
 		if(language.equals("Italian")) {
 			try {
@@ -27,6 +30,7 @@ public class Dictionary {
 		}
 			
 			else if(language.equals("English")) {
+				
 				try {
 					FileReader fr= new FileReader("src/main/resources/English.txt");
 					BufferedReader br= new BufferedReader(fr);
