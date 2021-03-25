@@ -3,11 +3,14 @@ package it.polito.tdp.spellchecker.model;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 public class Dictionary {
-
+	
 	List<String>dizionario= new LinkedList<String>();
 	
 	
@@ -81,10 +84,50 @@ public class Dictionary {
 		
 	}
 	
+	public List<RichWord> spellCheckTextLinear(List<String> inputTextList){
+		List<RichWord> paroleErrate=new LinkedList<>();
+		RichWord parola;
+		
+		for(String s:inputTextList) {
+			parola=new RichWord(s,false);
+			
+			for(String si:dizionario) {
+				if(si.equals(s)) {
+					parola.setCorretta(true);
+					break;
+				}
+			}
+			
+			if(!parola.isCorretta())
+				paroleErrate.add(parola);			
+		}
+		
+		return paroleErrate;
+	}
+	public List<RichWord> spellCheckTextDichotomic(List<String> inputTextList){
+		
+		List<RichWord> paroleErrate=new LinkedList<>();
+		RichWord parola;
+		int index;
+		for(String s: inputTextList) {
 	
+			parola=new RichWord(s,false);
+			//il metodo restituisce l'indice a cui viene trovato l'elemento nella lista 'dictionary'
+			//eseguendo una ricerca dicotomica; se non lo trova l'indice assume valori negativi
+			index=Collections.binarySearch(dizionario, s);
+			if(index>=0)
+				parola.setCorretta(true);
+		
+			
+			if(!parola.isCorretta())
+				paroleErrate.add(parola);	
 	
-	
-	
+		}
+		
+		return paroleErrate;
+	}
+		
+   
 	
 	
 }

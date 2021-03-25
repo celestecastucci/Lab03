@@ -57,6 +57,11 @@ public class FXMLController {
     	txtTime.clear();
     	txtInserisci.clear();
     }
+    
+    /**
+     * RICORDATI DI INOCARE QUI TUTTI I METODI CHE CREI IN MODEL!!! ALTRIEMENTI NON SONO COLLEGATI
+     * @param event
+     */
 
     @FXML
     void handleSpellCheck(ActionEvent event) {
@@ -79,8 +84,11 @@ public class FXMLController {
     	}
     	
     //collego il metodo controlloParoleSbagliate del model con questa lista e metto come parametro
-    	
+    /**
+     * IL CONTROLLER NON PUO' SAPERE 	
+     */
    paroleR= this.model.spellCheckText(listaInputText);
+   paroleR=this.model.spellCheckTextDichotomic(listaInputText);
   List<String>listaFinale=new LinkedList<String>();
   listaFinale = this.model.controlloParoleSbagliate(paroleR);
   
